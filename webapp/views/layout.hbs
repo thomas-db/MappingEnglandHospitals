@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+         <title>My Semantic Web Application</title>
+    </head>
+    <body>
+         {{{body}}}
+      <script>
+               function initMap() {
+               var LatLng = {lat: 51.507357, lng: -0.127982};
+
+                   var map = new google.maps.Map(document.getElementById('map'), {
+                     zoom: 12,
+                     center: LatLng
+                   });
+
+                   var marker = new google.maps.Marker({
+                     position: LatLng,
+                     map: map,
+                     draggable:true,
+                   });
+                   google.maps.event.addListener(marker, 'dragend', function(marker){
+                       var latLng = marker.latLng;
+                       currentLatitude = latLng.lat();
+                       currentLongitude = latLng.lng();
+                       console.log(currentLatitude);
+                       console.log(currentLongitude);
+                    });
+               }
+      </script>
+       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaKLg647-Y_iDsA-DYJ3-nv1VaPlI4028&callback=initMap">
+       </script>
+     </body>
+</html>
+
+<style>
+      #map {
+        height: 400px;
+        width: 100%;
+       }
+</style>
