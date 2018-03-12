@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.16.2",
     "hbs": "^4.0.1",
+    "requirejs": "^2.3.5",
     "stardog": "^1.0.0-rc3"
   }
 }
