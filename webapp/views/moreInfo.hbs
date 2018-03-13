@@ -1,0 +1,9 @@
+<a href="/">Return on the map</a>
+<h1>{{hospitalName}}</h1>
+<h2>More informations:</h2>
+<h3>City abstract:</h3>
+<p>{{abstract}}</p>
+<h3>Pharmacies:</h3>
+{{#each pharmacies}}
+<p><b>Pharmacie name:</b> {{name}}<br /><b>Maps link:</b> <a href="https://www.google.se/maps/search/{{latitude}}+{{longitude}}" target="_blank">here</a></p>
+{{/each}}

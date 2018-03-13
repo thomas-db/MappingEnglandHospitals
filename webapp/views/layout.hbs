@@ -5,11 +5,12 @@
       <script src="node_modules/requirejs/require.js"></script>
          <title>My Semantic Web Application</title>
     </head>
-    <body>
+    <body style="font-family:calibri;">
       {{{body}}}
       <script>
       var decodedJson = decodeURIComponent("{{{encodedJson}}}");
       var hospitals = JSON.parse(decodedJson);
+      
       console.log(hospitals);
                function initMap() {
                  var LatLng = {lat: 51.507357, lng: -0.127982};
@@ -24,20 +25,33 @@
                      var name = elem.name;
                      var adress = elem.adress;
                      var phone = elem.phone
+
+                    // [TITLE] Hospital name
                      var infowincontent = document.createElement('div');
                      var strong = document.createElement('strong');
                      strong.textContent = name;
                      infowincontent.appendChild(strong);
                      infowincontent.appendChild(document.createElement('br'));
 
+                    // [TEXT] Adress
                      var adress_text = document.createElement('text');
                      adress_text.textContent = adress;
                      infowincontent.appendChild(adress_text);
                      infowincontent.appendChild(document.createElement('br'));
 
+                    // [TEXT] Phone
                      var phone_number = document.createElement('text');
                      phone_number.textContent = phone;
                      infowincontent.appendChild(phone_number);
+                     infowincontent.appendChild(document.createElement('br'));
+
+                    // [LINK] More info
+                      var url = "moreInfo/" + elem.city + "&" + name + "&" + parseFloat(elem.lat) + "&" + parseFloat(elem.long);
+                      var urlLink = document.createElement("a"); 
+                      urlLink.setAttribute('href', url);       
+                      var t = document.createTextNode("More informations");       
+                      urlLink.appendChild(t);                                
+                      infowincontent.appendChild(urlLink);  
 
                      var marker = new google.maps.Marker({
                        name: name,
