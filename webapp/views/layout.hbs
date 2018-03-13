@@ -3,35 +3,61 @@
     <head>
       <script src="node_modules/stardog/dist/stardog.js"></script>
       <script src="node_modules/requirejs/require.js"></script>
-      <script src="/scripts/StarTruc.js"></script>
          <title>My Semantic Web Application</title>
     </head>
     <body>
-         {{{body}}}
+      {{{body}}}
       <script>
+      var decodedJson = decodeURIComponent("{{{encodedJson}}}");
+      var hospitals = JSON.parse(decodedJson);
+      console.log(hospitals);
                function initMap() {
-               var LatLng = {lat: 51.507357, lng: -0.127982};
-
+                 var LatLng = {lat: 51.507357, lng: -0.127982};
                    var map = new google.maps.Map(document.getElementById('map'), {
                      zoom: 12,
                      center: LatLng
                    });
+                   var infoWindow = new google.maps.InfoWindow;
 
-                   var marker = new google.maps.Marker({
-                     position: LatLng,
-                     map: map,
-                     draggable:true,
-                   });
-                   google.maps.event.addListener(marker, 'dragend', function(marker){
-                     truc();
-                       var latLng = marker.latLng;
-                       currentLatitude = latLng.lat();
-                       currentLongitude = latLng.lng();
-                       console.log(currentLatitude);
-                       console.log(currentLongitude);
-                    });
+                     hospitals.forEach(function(elem){
+                     var LatLng = {lat: parseFloat(elem.lat), lng: parseFloat(elem.long)};
+                     var name = elem.name;
+                     var adress = elem.adress;
+                     var phone = elem.phone
+                     var infowincontent = document.createElement('div');
+                     var strong = document.createElement('strong');
+                     strong.textContent = name;
+                     infowincontent.appendChild(strong);
+                     infowincontent.appendChild(document.createElement('br'));
+
+                     var adress_text = document.createElement('text');
+                     adress_text.textContent = adress;
+                     infowincontent.appendChild(adress_text);
+                     infowincontent.appendChild(document.createElement('br'));
+
+                     var phone_number = document.createElement('text');
+                     phone_number.textContent = phone;
+                     infowincontent.appendChild(phone_number);
+
+                     var marker = new google.maps.Marker({
+                       name: name,
+                       position: LatLng,
+                       map: map
+                     });
+
+                     marker.addListener('click', function() {
+                       infoWindow.setContent(infowincontent);
+                       infoWindow.open(map, marker);
+                       console.log(marker.getPosition().lat());
+                       console.log(marker.getPosition().lng());
+                       console.log(marker.name);
+                     });
+                     })
+
                }
+
       </script>
+
        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaKLg647-Y_iDsA-DYJ3-nv1VaPlI4028&callback=initMap">
        </script>
      </body>
